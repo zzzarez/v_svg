@@ -1,0 +1,81 @@
+include_file "$Studio/ElastLib/main_inc.epl";
+include_file "$Studio/ElastLib/THtml.epl";
+include_file "$CUR_SCR_DIR/gui_descr.epl";
+
+class TMatrix : public TUIMatrix{
+  TWTitle           TitleMain;
+  TForm             MainForm;
+  SButton           Logo;
+}
+TMatrix @Matrix;
+THtml   @Html;
+
+
+void TMatrix::Add(variant ptr ParentNode, variant ptr Arr){
+    THtml::TItem Item;
+    for(int i=0; i<count(Arr); i++){
+        Item = Arr[i];
+        
+        $sArr[0] = Item->Name;
+        int Cnt = count(Item->Props);
+        sArr[1] = "" . Cnt . " props:";
+        for(int i2=0; i2<Cnt; i2++){
+            THtml::TProp Prop = Item->Props[i2];
+            sArr[1] += " " . Prop->Name . "=\"" . Prop->Value . "\"";
+        }   
+        sArr[2] = "";
+        for(i2=0; i2<count(Item->Classes); i2++){
+            sArr[2] += " " . Item->Classes[i2];
+           print "claaa=".Item->Classes[i2];
+        }
+        sArr[3] = "";
+        if(is_string(Item->Text))sArr[3] = Item->Text;
+        else if(is_array(Item->Text)){
+           for(i2=0; i2<count(Item->Text); i2++){
+                sArr[3] += Item->Text[i2];
+           }
+        }
+ 
+    }
+}
+void TMatrix::Prepare(){    
+    print "m 1\n";
+    Lang->Init();
+    Lang->SetCurLang(LANG_L_EN);
+    AddLanguage("en");
+    AddLanguage("ru"); 
+    print "m 2\n";
+    PrepareFromJsonStr(gui_descr);
+    print "m 3\n";
+    CreateDesktopInst();
+    print "m 4\n";
+
+    #ifdef _TEST_HIER
+    sOP->Explode("7.1.0.1.1.0.0", ".");
+    int j = 0;
+    int bBody;
+    for(;;){
+        int bSuc = 0;
+        for(int i=0; i<count(CurArr); i++){
+            CurItem = CurArr[i];    
+            if(i == sOP->Lines[j]){
+               CurItem->Tag = 1;
+               j++;
+               bSuc = 1;
+               break;
+            }
+        }
+        if(bSuc == 0)break;
+        if(j >= count(sOP->Lines))break;
+        CurArr = CurItem->SubTags;
+    }
+    #endif
+print "AA\n";
+    Add(0, Html->HierArr);
+}
+
+Matrix->Prepare();
+print "Show();!\n";
+is_valid(Matrix->MainForm);
+Matrix->MainForm->Show();
+DoEvents();

@@ -1,0 +1,41 @@
+string gui_descr = '
+{
+    "g_item" : {
+        "type" : "schemes",
+            "values" : ["desktop", "tablet", "mobile", "web"]
+    },
+     "g_item" : {
+        "type" : "form",
+            "class" : "TForm",
+            "member" : "MainForm",
+            "support" : "desktop",
+            "default_size" : [{"scheme" : "desktop", "center" : 1, "Left" : 500, "Top" : 500, "Width" : 500, "Height" : 400},
+            { "scheme" : "tablet", "center" : 1,"Left" : 550, "Top" : 550, "Width" : 880, "Height" : 524}] ,
+            "icon" : "favicon.png",
+            "properties" : {"Sizeable" : 1, "BkgrColor" : 0xeFb9ede9},
+            "widgets" : {
+            "g_item" : {
+                "type" : "widget", 
+                    "class" : "TWTitle",
+                    "member" : "TitleMain",
+                    "desk_size" : {"Left" : 550, "Top" : 550, "Width" : 500, "Height" : 200},
+                    "properties" : { "Text" : "Elastic Platform Calculator Example", "Exit" : 1, "Sizeable" : 1,  "BkgrColor" : 0x00b9ede9, "properties" : ["fill-color", 0xe087ede9] }
+            },
+                "g_item" : {
+                "type" : "widget",
+                    "class" : "SButton",
+                    "member" : "Logo",
+                    "visible" : ["desktop"] ,
+                    "size" : [{"scheme" : "desktop", "Left" : 5, "Top" : "TitleMain.Top + TitleMain.Height+10", "Width" : 290,
+                    "Height" : 80}] ,
+                    "properties" : { "Frgr" : ["text", "Tracktime", "path", "ar.svg", "ploffset", "0", "pic-h-align", "center",
+                    "font-name", "Classic.ttf", "font-size", 24, "font-mono", 1, "text-location", "right",
+                    "text-color", 0xfff68a6a, "text-offset", [15, 0, 0, 0]] }
+            },
+
+              
+
+        }
+    }
+}
+';
